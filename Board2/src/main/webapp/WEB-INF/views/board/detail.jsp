@@ -4,9 +4,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>gong tae hyun</title>
+<title>${board.title}</title>
 </head>
+
+<style>
+	.tableBox{
+		width: 600px;
+	}
+</style>
 <body>
 
+<div class='tableBox'>
+	<b>${board.boardNo}번 제목 : ${board.title}</b>
+	<hr> 
+	작성 일 : ${board.createDate} 수정 일 : ${board.modifyDate}
+	<hr>
+	${board.contents}
+</div>
 </body>
 </html>

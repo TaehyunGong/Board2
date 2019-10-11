@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.taehyun.board.Board.Vo.Board;
+import com.taehyun.board.Common.MapperVo;
 
 @Repository
 public class BoardDaoImpl implements BoardDao {
@@ -17,6 +18,11 @@ public class BoardDaoImpl implements BoardDao {
 	@Override
 	public List<Board> selectAllBoardList() {
 		return session.selectList("selectAllBoardList");
+	}
+
+	@Override
+	public Board selectBoard(MapperVo vo) {
+		return session.selectOne("selectBoard", vo);
 	}
 
 }

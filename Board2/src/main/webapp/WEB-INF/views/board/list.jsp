@@ -6,6 +6,12 @@
 <head>
 <title>게시판</title>
 </head>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <style>
 
@@ -58,6 +64,7 @@ table.blueTable tfoot td {
 }
 table.blueTable tfoot .links {
   text-align: right;
+  
 }
 table.blueTable tfoot .links a{
   display: inline-block;
@@ -70,8 +77,21 @@ table.blueTable tfoot .links a{
 .tableBox{
 	width: 600px;
 }
+table.blueTable tbody tr:hover td{
+  background-color: yellow;
+  cursor:pointer;
+}
+
+.button{
+	display: inline-block;
+}
 </style>
 
+<script>
+	function detail(boardNo){
+		location.href="/detail?boardNo=" + boardNo;
+	}
+</script>
 <body>
 
 	<div class='tableBox'>
@@ -86,7 +106,7 @@ table.blueTable tfoot .links a{
 			
 			<tbody>
 				<c:forEach var="board" items="${list}" >
-					<tr>
+					<tr onclick="detail(${board.boardNo})">
 						<td>${board.boardNo}</td>
 						<td>${board.title}</td>
 						<td>${board.createDate}</td>
@@ -96,6 +116,9 @@ table.blueTable tfoot .links a{
 			<tfoot>
 				<tr>
 					<td colspan="4">
+						<div class='button'>
+							<button type="button" class="btn btn-primary" onclick="/writeBoard">글 작성</button>
+						</div>
 						<div class="links">
 							<a href="#">&laquo;</a> 
 							<a class="active" href="#">1</a> 

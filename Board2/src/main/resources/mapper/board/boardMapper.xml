@@ -4,7 +4,19 @@
 <mapper namespace="com.taehyun.board.Board">
 
 	<select id="selectAllBoardList" resultType="Board">
-		SELECT boardNo, title, contents, createDate, modifyDate FROM Board
+		SELECT boardNo, title, contents, createDate, modifyDate, @ROWNUM := @ROWNUM+1 
+		FROM Board, (SELECT @ROWNUM:=0) TEMP
+		WHERE deleteDate IS NULL
+		ORDER BY @ROWNUM DESC
+		LIMIT 10
+	</select>
+	
+	<select id="selectBoard" resultType="Board" parameterType="MapperVo">
+		SELECT *
+		FROM Board
+		WHERE 1=1
+		AND deleteDate IS NULL
+		AND ${columeName} = #{value}
 	</select>
 	
 </mapper>
