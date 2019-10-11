@@ -7,13 +7,10 @@
 	<!-- root-comtext.xml 변경 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/resources/config/root-context.xml</param-value>
-	</context-param>
-	
-	<!-- 데이터베이스 설정 context -->
-	<context-param>
-		<param-name>contextConfigLocation</param-name>
-		<param-value>/resources/config/database-config-context.xml</param-value>
+		<param-value>
+			/resources/config/root-context.xml,
+			/resources/config/database-config-context.xml
+		</param-value>
 	</context-param>
 	
 	<!-- Creates the Spring Container shared by all Servlets and Filters -->
