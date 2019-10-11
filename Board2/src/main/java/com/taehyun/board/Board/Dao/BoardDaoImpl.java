@@ -25,4 +25,16 @@ public class BoardDaoImpl implements BoardDao {
 		return session.selectOne("selectBoard", vo);
 	}
 
+	@Override
+	public boolean insertBoard(Board board) {
+		session.insert("insertBoard", board);
+		return false;
+	}
+
+	@Override
+	public int selectMaxBoardNo() {
+		int result = session.selectOne("selectMaxBoardNo");
+		return result;
+	}
+
 }

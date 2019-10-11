@@ -10,4 +10,8 @@ public interface BoardDao {
 	public List<Board> selectAllBoardList();
 	
 	public Board selectBoard(MapperVo vo);
+	
+	public boolean insertBoard(Board board);
+	
+	public int selectMaxBoardNo();
 }

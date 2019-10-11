@@ -31,8 +31,14 @@ public class BoardServiceImpl implements BoardService {
 	public boolean insertBoard(MultipartHttpServletRequest req) {
 		String title = req.getParameter("title");
 		String contents = req.getParameter("contents");
+		int boardNo = dao.selectMaxBoardNo();
+		System.out.println("길이 : " + contents.length());
+		Board board = new Board(); 
+		board.setTitle(title);
+		board.setContents(contents);
+		board.setBoardNo(boardNo);
 		
-		System.out.println(title + " , " + contents);
+		dao.insertBoard(board);
 		
 		return false;
 	}

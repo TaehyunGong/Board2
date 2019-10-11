@@ -4,11 +4,9 @@
 <mapper namespace="com.taehyun.board.Board">
 
 	<select id="selectAllBoardList" resultType="Board">
-		SELECT boardNo, title, contents, createDate, modifyDate, @ROWNUM := @ROWNUM+1 
-		FROM Board, (SELECT @ROWNUM:=0) TEMP
-		WHERE deleteDate IS NULL
-		ORDER BY @ROWNUM DESC
-		LIMIT 10
+		SELECT *
+		FROM  Board
+		ORDER BY 1 DESC
 	</select>
 	
 	<select id="selectBoard" resultType="Board" parameterType="MapperVo">
@@ -19,4 +17,12 @@
 		AND ${columeName} = #{value}
 	</select>
 	
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO Board(boardNo, title, contents, createDate)
+		VALUES(#{boardNo}, #{title}, #{contents}, NOW());
+	</insert>
+	
+	<select id="selectMaxBoardNo" resultType="Int">
+		SELECT IFNULL(MAX(boardNo),1)+1 FROM Board
+	</select>
 </mapper>
