@@ -3,8 +3,4 @@
 
 <mapper namespace="com.taehyun.board.Board">
 
-	<select id="selectTest" resultType="String">
-		SELECT title FROM Board
-	</select>
-	
 </mapper>

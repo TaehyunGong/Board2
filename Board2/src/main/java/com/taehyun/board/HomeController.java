@@ -17,17 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class HomeController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	
-	@Autowired
-	SqlSession session;
-	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
-		System.out.println((String)session.selectOne("selectTest"));
-		
-		return "home";
+		return "redirect:/board";
 	}
 	
 }
