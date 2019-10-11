@@ -117,7 +117,7 @@ table.blueTable tbody tr:hover td{
 				<tr>
 					<td colspan="4">
 						<div class='button'>
-							<button type="button" class="btn btn-primary" onclick="/writeBoard">글 작성</button>
+							<a href="/writeBoard"><button type="button" class="btn btn-primary">글 작성</button></a>
 						</div>
 						<div class="links">
 							<a href="#">&laquo;</a> 

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.taehyun.board.Board.Dao.BoardDao;
 import com.taehyun.board.Board.Vo.Board;
@@ -25,7 +26,15 @@ public class BoardServiceImpl implements BoardService {
 		MapperVo vo = new MapperVo("boardNo", boardNo);
 		return dao.selectBoard(vo);
 	}
-	
-	
+
+	@Override
+	public boolean insertBoard(MultipartHttpServletRequest req) {
+		String title = req.getParameter("title");
+		String contents = req.getParameter("contents");
+		
+		System.out.println(title + " , " + contents);
+		
+		return false;
+	}
 
 }

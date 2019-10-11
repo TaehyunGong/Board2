@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.taehyun.board.Board.Service.BoardService;
@@ -35,10 +36,19 @@ public class BoardController {
 		return mav;
 	}	
 	
+	//글 작성 페이지로 이동
 	@RequestMapping(value="/writeBoard")
 	public ModelAndView writeBoard() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("writeBoard");
+		mav.setViewName("/board/write");
 		return mav;
+	}
+	
+	//작성한 글 insert
+	@RequestMapping(value="/insertBoard", method=RequestMethod.POST)
+	public String insertBoard(MultipartHttpServletRequest req) {
+		service.insertBoard(req);
+		
+		return "redirect:/board";
 	}
 }
