@@ -3,4 +3,8 @@
 
 <mapper namespace="com.taehyun.board.Board">
 
+	<select id="selectAllBoardList" resultType="Board">
+		SELECT boardNo, title, contents, createDate, modifyDate FROM Board
+	</select>
+	
 </mapper>

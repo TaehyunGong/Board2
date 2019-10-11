@@ -1,8 +1,10 @@
 package com.taehyun.board.Board.Service;
 
-import org.springframework.stereotype.Service;
+import java.util.List;
 
-@Service
+import com.taehyun.board.Board.Vo.Board;
+
 public interface BoardService {
-
+	
+	public List<Board> selectAllList();
 }

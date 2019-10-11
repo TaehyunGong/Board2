@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+	<typeAliases>
+		<typeAlias alias="Board" type="com.taehyun.board.Board.Vo.Board"/>
+		<typeAlias alias="Attachment" type="com.taehyun.board.Board.Vo.Attachment"/>
+		<typeAlias alias="Comment" type="com.taehyun.board.Board.Vo.Comment"/>
+	</typeAliases>
 </configuration>

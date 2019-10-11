@@ -1,8 +1,10 @@
 package com.taehyun.board.Board.Dao;
 
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-@Repository
+import com.taehyun.board.Board.Vo.Board;
+
 public interface BoardDao {
 
+	public List<Board> selectAllBoardList();
 }

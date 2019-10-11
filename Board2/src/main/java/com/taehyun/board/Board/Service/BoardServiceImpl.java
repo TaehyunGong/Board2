@@ -1,5 +1,22 @@
 package com.taehyun.board.Board.Service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.taehyun.board.Board.Dao.BoardDao;
+import com.taehyun.board.Board.Vo.Board;
+
+@Service
 public class BoardServiceImpl implements BoardService {
+
+	@Autowired
+	BoardDao dao;
+	
+	@Override
+	public List<Board> selectAllList() {
+		return dao.selectAllBoardList();
+	}
 
 }
