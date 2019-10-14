@@ -6,18 +6,33 @@
 <head>
 <title>${board.title}</title>
 </head>
+<!-- 합쳐지고 최소화된 최신 CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<!-- 부가적인 테마 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css">
+<!-- 합쳐지고 최소화된 최신 자바스크립트 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
 <style>
 	.tableBox{
 		width: 600px;
 	}
 </style>
+
+<script>
+	function action(path){
+		location.href='/'+path+'?boardNo=${board.boardNo}';
+	}
+</script>
 <body>
 
 <div class='tableBox'>
 	<b>${board.boardNo}번 제목 : ${board.title}</b>
 	<hr> 
 	작성 일 : ${board.createDate} 수정 일 : ${board.modifyDate}
+	<br>
+	<button onclick='action("delete")' class='btn btn-danger'>글 삭제</button>&nbsp;
+	<button onclick='action("modify")' class='btn btn-success'>글 수정</button>
 	<hr>
 	${board.contents}
 </div>
