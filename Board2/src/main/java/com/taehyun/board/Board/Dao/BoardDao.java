@@ -22,4 +22,7 @@ public interface BoardDao {
 	public int selectMaxBoardNo();
 	
 	public int deleteBoard(int boardNo);
+	
+	public Attachment selectBoardAttach(int boardNo);
+	
 }

@@ -10,6 +10,10 @@ public class Board {
 	private Date createDate;
 	private Date modifyDate;
 	private Date deleteDate;
+	
+	//첨부파일
+	private Attachment attachment;
+	
 	public Board() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -59,11 +63,21 @@ public class Board {
 	public void setDeleteDate(Date deleteDate) {
 		this.deleteDate = deleteDate;
 	}
+	
+	
+	public Attachment getAttachment() {
+		return attachment;
+	}
+	public void setAttachment(Attachment attachment) {
+		this.attachment = attachment;
+	}
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", title=" + title + ", contents=" + contents + ", createDate="
-				+ createDate + ", modifyDate=" + modifyDate + ", deleteDate=" + deleteDate + "]";
+				+ createDate + ", modifyDate=" + modifyDate + ", deleteDate=" + deleteDate + ", attachment="
+				+ attachment + "]";
 	}
+
 	
 	
 }

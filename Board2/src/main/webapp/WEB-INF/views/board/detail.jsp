@@ -36,6 +36,8 @@
 	<button onclick='action("")' class='btn btn-info'>리스트</button>
 	<hr>
 	${board.contents}
+	<hr>
+	<a href="/download?fileName=${board.attachment.fileName}&boardNo=${board.boardNo}">${board.attachment.originFileName}</a>
 </div>
 </body>
 </html>

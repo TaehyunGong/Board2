@@ -61,4 +61,13 @@
 		UPDATE Board SET deleteDate = NOW()
 		WHERE boardNo = #{boardNo} 
 	</delete>
+	
+	<select id="selectBoardAttach" resultType="Attachment" parameterType="Int">
+		SELECT *
+		FROM Attachment
+		WHERE 1=1
+		AND deleteDate IS NULL
+		AND boardNo = #{boardNo}
+		ORDER BY attachNo
+	</select>
 </mapper>

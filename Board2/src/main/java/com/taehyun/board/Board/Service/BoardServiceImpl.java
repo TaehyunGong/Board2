@@ -1,8 +1,16 @@
 package com.taehyun.board.Board.Service;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,6 +54,8 @@ public class BoardServiceImpl implements BoardService {
 		MapperVo vo = new MapperVo("boardNo", boardNo);
 		
 		Board board =  dao.selectBoard(vo);
+		//첨부파일 가져오기.
+		board.setAttachment(dao.selectBoardAttach(Integer.parseInt(boardNo)));
 		
 		//삭제된 글이라면 호출시 null객체로 반환
 		if(board.getTitle() == null)
@@ -107,6 +117,48 @@ public class BoardServiceImpl implements BoardService {
 		//하나라도 UPDATE DELETE_DT = NOW()를 해주면 ture를 반환
 		boolean result = (dao.deleteBoard(boardNo) >= 1) ? true : false;
 		return result; 
+	}
+
+	@Override
+	public HttpServletResponse downloadAttach(HttpServletRequest req, HttpServletResponse res) {
+		String fileName = req.getParameter("fileName");
+		int boardNo = Integer.parseInt(req.getParameter("boardNo"));
+		
+		String realPath = fileLib.getFilePath();
+		Attachment attach = dao.selectBoardAttach(boardNo);
+		String originName = attach.getOriginFileName();
+		
+        try {
+        	originName = URLEncoder.encode(originName, "UTF-8");
+        } catch (UnsupportedEncodingException ex) {
+            System.out.println("UnsupportedEncodingException");
+        }
+        
+        realPath = realPath + fileName;
+        System.out.println(realPath);
+        
+        // 파일명 지정        
+        res.setContentType("application/octer-stream");
+        res.setHeader("Content-Transfer-Encoding", "binary;");
+        res.setHeader("Content-Disposition", "attachment; filename=\"" + originName + "\"");
+        try {
+            OutputStream os = res.getOutputStream();
+            FileInputStream fis = new FileInputStream(realPath);
+ 
+            int ncount = 0;
+            byte[] bytes = new byte[512];
+ 
+            while ((ncount = fis.read(bytes)) != -1 ) {
+                os.write(bytes, 0, ncount);
+            }
+            fis.close();
+            os.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("FileNotFoundException");
+        } catch (IOException ex) {
+            System.out.println("IOException");
+        }
+		return res;
 	}
 
 }

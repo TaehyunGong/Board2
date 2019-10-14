@@ -54,4 +54,9 @@ public class BoardDaoImpl implements BoardDao {
 		return session.delete("deleteBoard", boardNo);
 	}
 
+	@Override
+	public Attachment selectBoardAttach(int boardNo) {
+		return session.selectOne("selectBoardAttach", boardNo);
+	}
+
 }
