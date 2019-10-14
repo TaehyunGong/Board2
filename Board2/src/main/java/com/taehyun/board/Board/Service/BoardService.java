@@ -16,4 +16,6 @@ public interface BoardService {
 	public boolean insertBoard(MultipartHttpServletRequest req);
 	
 	public String editorImageUpload(MultipartHttpServletRequest req) throws IOException ;
+	
+	public boolean deleteBoard(int boardNo);
 }

@@ -32,7 +32,14 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public Board selectDetailBoard(String boardNo) {
 		MapperVo vo = new MapperVo("boardNo", boardNo);
-		return dao.selectBoard(vo);
+		
+		Board board =  dao.selectBoard(vo);
+		
+		//삭제된 글이라면 호출시 null객체로 반환
+		if(board.getTitle() == null)
+			board = null;
+		
+		return board;
 	}
 
 	@Override
@@ -55,6 +62,13 @@ public class BoardServiceImpl implements BoardService {
 	public String editorImageUpload(MultipartHttpServletRequest req) throws IOException {
 		MultipartFile file = req.getFile("image");
 		return fileLib.uploadFile(file.getBytes(), file.getOriginalFilename());
+	}
+
+	@Override
+	public boolean deleteBoard(int boardNo) {
+		//하나라도 UPDATE DELETE_DT = NOW()를 해주면 ture를 반환
+		boolean result = (dao.deleteBoard(boardNo) >= 1) ? true : false;
+		return result; 
 	}
 
 }

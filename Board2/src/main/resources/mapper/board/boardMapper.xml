@@ -6,6 +6,7 @@
 	<select id="selectAllBoardList" resultType="Board">
 		SELECT *
 		FROM  Board
+		WHERE deleteDate IS NULL
 		ORDER BY 1 DESC
 	</select>
 	
@@ -25,4 +26,9 @@
 	<select id="selectMaxBoardNo" resultType="Int">
 		SELECT IFNULL(MAX(boardNo),1)+1 FROM Board
 	</select>
+	
+	<delete id="deleteBoard" parameterType="Int">
+		UPDATE Board SET deleteDate = NOW()
+		WHERE boardNo = #{boardNo} 
+	</delete>
 </mapper>

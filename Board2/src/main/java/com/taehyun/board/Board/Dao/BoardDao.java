@@ -11,7 +11,9 @@ public interface BoardDao {
 	
 	public Board selectBoard(MapperVo vo);
 	
-	public boolean insertBoard(Board board);
+	public int insertBoard(Board board);
 	
 	public int selectMaxBoardNo();
+	
+	public int deleteBoard(int boardNo);
 }
