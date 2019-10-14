@@ -1,13 +1,18 @@
 package com.taehyun.board.Board.Service;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.taehyun.board.Board.Dao.BoardDao;
 import com.taehyun.board.Board.Vo.Board;
+import com.taehyun.board.Common.FileLib;
 import com.taehyun.board.Common.MapperVo;
 
 @Service
@@ -16,6 +21,9 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	BoardDao dao;
 	
+	@Autowired
+	FileLib fileLib;
+
 	@Override
 	public List<Board> selectAllList() {
 		return dao.selectAllBoardList();
@@ -41,6 +49,12 @@ public class BoardServiceImpl implements BoardService {
 		dao.insertBoard(board);
 		
 		return false;
+	}
+
+	@Override
+	public String editorImageUpload(MultipartHttpServletRequest req) throws IOException {
+		MultipartFile file = req.getFile("image");
+		return fileLib.uploadFile(file.getBytes(), file.getOriginalFilename());
 	}
 
 }

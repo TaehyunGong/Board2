@@ -21,7 +21,7 @@
 
 <script>
 	function action(path){
-		location.href='/'+path+'?boardNo=${board.boardNo}';
+		location.href='/'+path;
 	}
 </script>
 <body>
@@ -31,8 +31,9 @@
 	<hr> 
 	작성 일 : ${board.createDate} 수정 일 : ${board.modifyDate}
 	<br>
-	<button onclick='action("delete")' class='btn btn-danger'>글 삭제</button>&nbsp;
-	<button onclick='action("modify")' class='btn btn-success'>글 수정</button>
+	<button onclick='action("delete?boardNo=${board.boardNo}")' class='btn btn-danger'>글 삭제</button>&nbsp;
+	<button onclick='action("modify?boardNo=${board.boardNo}")' class='btn btn-success'>글 수정</button>&nbsp;
+	<button onclick='action("")' class='btn btn-info'>리스트</button>
 	<hr>
 	${board.contents}
 </div>

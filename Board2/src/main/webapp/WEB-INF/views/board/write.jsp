@@ -16,8 +16,35 @@
   $(document).ready(function() {
       $('#summernote').summernote({
     	  placeholder: 'placeholder',
-          height: 200
+          height: 200,
+          callbacks:{
+	          onImageUpload: function(files, editor, welEditable) {
+	        	  console.log('출력');
+	              sendFile(files[0], this);
+	          }
+          }
       });
+      
+      function sendFile(file, editor) {
+   	    var data = new FormData();
+   	    data.append("image", file);
+   	    $.ajax({
+   	        url: '/editorImageUpload',
+   	        enctype: 'multipart/form-data',
+   	        cache: false,
+   	        contentType: false,
+   	        processData: false,
+   	        data: data,
+   	        type: "post",
+   	        success: function(url) {
+   	            var image = $('<img>').attr('src', 'http://' + url);
+   	            $('#summernote').summernote("insertNode", image[0]);
+   	        },
+   	        error: function(data) {
+   	            console.log(data);
+   	        }
+   	    });
+      }
   });
 </script>
   

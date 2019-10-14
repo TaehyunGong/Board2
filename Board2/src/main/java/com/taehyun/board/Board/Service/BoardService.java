@@ -1,5 +1,6 @@
 package com.taehyun.board.Board.Service;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -13,4 +14,6 @@ public interface BoardService {
 	public Board selectDetailBoard(String boardNo);
 	
 	public boolean insertBoard(MultipartHttpServletRequest req);
+	
+	public String editorImageUpload(MultipartHttpServletRequest req) throws IOException ;
 }
