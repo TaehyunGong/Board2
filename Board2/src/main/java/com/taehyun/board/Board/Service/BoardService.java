@@ -9,7 +9,7 @@ import com.taehyun.board.Board.Vo.Board;
 
 public interface BoardService {
 	
-	public List<Board> selectAllList();
+	public List<Board> selectAllList(int pageNo);
 	
 	public Board selectDetailBoard(String boardNo);
 	

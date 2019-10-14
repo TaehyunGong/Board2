@@ -1,6 +1,7 @@
 package com.taehyun.board.Board.Dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +17,8 @@ public class BoardDaoImpl implements BoardDao {
 	SqlSession session;
 	
 	@Override
-	public List<Board> selectAllBoardList() {
-		return session.selectList("selectAllBoardList");
+	public List<Board> selectAllBoardList(Map<String, Integer> map) {
+		return session.selectList("selectAllBoardList", map);
 	}
 
 	@Override

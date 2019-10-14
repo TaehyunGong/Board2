@@ -21,11 +21,11 @@ public class BoardController {
 	
 	//모든 게시글 리스트 조회
 	@RequestMapping(value="/board", method=RequestMethod.GET)
-	public ModelAndView boardAllList() {
+	public ModelAndView boardAllList(@RequestParam(defaultValue="1") int pageNo) {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.setViewName("/board/list");
-		mav.addObject("list", service.selectAllList());
+		mav.addObject("list", service.selectAllList(pageNo));
 		return mav;
 	}
 	

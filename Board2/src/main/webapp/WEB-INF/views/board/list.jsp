@@ -120,12 +120,13 @@ table.blueTable tbody tr:hover td{
 							<a href="/writeBoard"><button type="button" class="btn btn-primary">글 작성</button></a>
 						</div>
 						<div class="links">
-							<a href="#">&laquo;</a> 
-							<a class="active" href="#">1</a> 
-							<a href="#">2</a> 
-							<a href="#">3</a> 
-							<a href="#">4</a> 
-							<a href="#">&raquo;</a>
+							<a href="/board?pageNo=0">&laquo;</a> 
+							<a href="/board?pageNo=1">1</a> 
+							<a href="/board?pageNo=2">2</a> 
+							<a href="/board?pageNo=3">3</a> 
+							<a href="/board?pageNo=4">4</a>
+							<a href="/board?pageNo=4">5</a> 
+							<a href="/board?pageNo=5">&raquo;</a>
 						</div>
 					</td>
 				</tr>

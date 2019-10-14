@@ -3,11 +3,15 @@
 
 <mapper namespace="com.taehyun.board.Board">
 
-	<select id="selectAllBoardList" resultType="Board">
+	<select id="selectAllBoardList" resultType="Board" parameterType="Map">
 		SELECT *
-		FROM  Board
+		FROM  (
+		SELECT boardNo, title, contents, createDate, modifyDate, @ROWNUM := @ROWNUM+1 ROWNUM
+		FROM Board, (SELECT @ROWNUM:=0) TEMP
 		WHERE deleteDate IS NULL
-		ORDER BY 1 DESC
+		ORDER BY boardNo DESC
+		) A
+		WHERE ROWNUM BETWEEN #{startNo} AND #{lastNo}
 	</select>
 	
 	<select id="selectBoard" resultType="Board" parameterType="MapperVo">

@@ -1,9 +1,9 @@
 package com.taehyun.board.Board.Service;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +25,13 @@ public class BoardServiceImpl implements BoardService {
 	FileLib fileLib;
 
 	@Override
-	public List<Board> selectAllList() {
-		return dao.selectAllBoardList();
+	public List<Board> selectAllList(int pageNo) {
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startNo", ((pageNo-1)*10)+1);
+		map.put("lastNo", pageNo*10);
+		
+		return dao.selectAllBoardList(map);
 	}
 
 	@Override
