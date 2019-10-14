@@ -49,7 +49,7 @@
 	</insert>
 	
 	<select id="selectMaxBoardNo" resultType="Int">
-		SELECT IFNULL(MAX(boardNo),1)+1 FROM Board
+		SELECT IFNULL(MAX(boardNo),0)+1 FROM Board
 	</select>
 	
 	<delete id="deleteBoard" parameterType="Int">
