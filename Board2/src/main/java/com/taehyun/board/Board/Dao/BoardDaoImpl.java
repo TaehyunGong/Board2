@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +16,7 @@ public class BoardDaoImpl implements BoardDao {
 
 	@Autowired
 	SqlSession session;
-	
+
 	@Override
 	public List<Board> selectAllBoardList(Map<String, Integer> map) {
 		return session.selectList("selectAllBoardList", map);
@@ -30,10 +31,11 @@ public class BoardDaoImpl implements BoardDao {
 	public Board selectBoard(MapperVo vo) {
 		return session.selectOne("selectBoard", vo);
 	}
-
+	
 	@Override
-	public int insertBoard(Board board) {
-		return session.insert("insertBoard", board);
+	public int insertBoard(Board board){
+		int result = session.insert("insertBoard", board);
+		return result;
 	}
 
 	@Override

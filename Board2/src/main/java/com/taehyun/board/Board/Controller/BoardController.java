@@ -51,9 +51,8 @@ public class BoardController {
 	
 	//작성한 글 insert
 	@RequestMapping(value="/insertBoard", method=RequestMethod.POST)
-	public String insertBoard(MultipartHttpServletRequest req) {
+	public String insertBoard(MultipartHttpServletRequest req) throws Exception {
 		service.insertBoard(req);
-		
 		return "redirect:/board";
 	}
 	
@@ -65,6 +64,7 @@ public class BoardController {
 		return req.getServerName()+":"+req.getServerPort()+"/upload/"+uploadFileName;
 	}
 	
+	//글 삭제, update를 사용하여 delete_dt = now()로 삭제
 	@RequestMapping(value="/delete", method=RequestMethod.GET)
 	public ModelAndView deleteBoard(@RequestParam int boardNo) {
 		ModelAndView mav = new ModelAndView();
