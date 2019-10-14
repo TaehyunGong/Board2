@@ -26,7 +26,7 @@ public class FileLib {
 
 	/**
 	 * @param file
-	 * @return 업로드 한 파일 경로 + 파일 명 + 확장자
+	 * @return 파일 명 + 확장자
 	 * @throws IOException 
 	 * @throws FileNotFoundException 
 	 */
@@ -49,7 +49,7 @@ public class FileLib {
 	/**
 	 * @param fileBytes
 	 * @param originFileName
-	 * @return 업로드 한 파일 경로 + 파일 명 + 확장자
+	 * @return 파일 명 + 확장자
 	 * @throws IOException
 	 * @description MultiPartFile의 getBytes()을 사용후 업로드
 	 */
@@ -82,6 +82,14 @@ public class FileLib {
 		System.out.println("업로드 파일 이름 : " + fileName);
 		
 		return fileName;
+	}
+	
+	/**
+	 * @return filePath
+	 * @description 업로드 경로를 반환받는다. 
+	 */
+	public String getFilePath() {
+		return filePath;
 	}
 	
 }
