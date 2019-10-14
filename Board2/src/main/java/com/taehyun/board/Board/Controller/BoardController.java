@@ -25,7 +25,9 @@ public class BoardController {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.setViewName("/board/list");
-		mav.addObject("list", service.selectAllList(pageNo));
+		mav.addObject("list", service.selectAllList(pageNo).get("list"));
+		mav.addObject("pageNumbers", service.selectAllList(pageNo).get("pageNumbers"));
+		
 		return mav;
 	}
 	

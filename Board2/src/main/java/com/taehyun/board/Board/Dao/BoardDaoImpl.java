@@ -20,6 +20,11 @@ public class BoardDaoImpl implements BoardDao {
 	public List<Board> selectAllBoardList(Map<String, Integer> map) {
 		return session.selectList("selectAllBoardList", map);
 	}
+	
+	@Override
+	public Map<String, Integer> selectPageNumbers(int pageNo) {
+		return session.selectOne("selectPageNumbers", pageNo);
+	}
 
 	@Override
 	public Board selectBoard(MapperVo vo) {

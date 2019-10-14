@@ -25,13 +25,19 @@ public class BoardServiceImpl implements BoardService {
 	FileLib fileLib;
 
 	@Override
-	public List<Board> selectAllList(int pageNo) {
+	public Map<String, Object> selectAllList(int pageNo) {
 		
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("startNo", ((pageNo-1)*10)+1);
 		map.put("lastNo", pageNo*10);
 		
-		return dao.selectAllBoardList(map);
+		Map<String, Object> result = new HashMap<String, Object>();
+		//해당 페이지 넘버에 맞는 10개의 게시글
+		result.put("list", dao.selectAllBoardList(map));
+		//해당 페이지 넘버 반환
+		result.put("pageNumbers", dao.selectPageNumbers(pageNo));
+		
+		return result;
 	}
 
 	@Override

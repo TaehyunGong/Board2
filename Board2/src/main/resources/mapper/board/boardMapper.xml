@@ -14,6 +14,27 @@
 		WHERE ROWNUM BETWEEN #{startNo} AND #{lastNo}
 	</select>
 	
+	<select id="selectPageNumbers" parameterType="Int" resultType="Map">
+		<![CDATA[
+			SELECT CASE WHEN (PAGE-2) > 0 
+				   THEN (PAGE-2) ELSE 1
+				   END AS 'START', 
+				   CASE WHEN (PAGE+2) < COUNT 
+				   THEN (PAGE+2) ELSE COUNT
+				   END AS 'END', 
+				   COUNT
+			FROM (
+			SELECT CEIL(COUNT(*) / 10) COUNT
+				 , CASE WHEN #{pageNo} <= 3 THEN 3
+				        WHEN #{pageNo} >= CEIL(COUNT(*) / 10)-2 THEN CEIL(COUNT(*) / 10)-2
+				        ELSE #{pageNo}
+				   END PAGE
+			FROM Board, (SELECT @ROWNUM:=0) TEMP
+			WHERE deleteDate IS NULL
+			) A
+		]]>
+	</select>
+	
 	<select id="selectBoard" resultType="Board" parameterType="MapperVo">
 		SELECT *
 		FROM Board

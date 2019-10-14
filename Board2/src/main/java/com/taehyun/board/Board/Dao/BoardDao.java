@@ -10,6 +10,8 @@ public interface BoardDao {
 
 	public List<Board> selectAllBoardList(Map<String, Integer> map);
 	
+	public Map<String, Integer> selectPageNumbers(int pageNo);
+	
 	public Board selectBoard(MapperVo vo);
 	
 	public int insertBoard(Board board);
