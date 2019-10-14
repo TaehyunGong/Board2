@@ -2,15 +2,16 @@ package com.taehyun.board.Board.Service;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.taehyun.board.Board.Dao.BoardDao;
+import com.taehyun.board.Board.Vo.Attachment;
 import com.taehyun.board.Board.Vo.Board;
 import com.taehyun.board.Common.FileLib;
 import com.taehyun.board.Common.MapperVo;
@@ -53,20 +54,46 @@ public class BoardServiceImpl implements BoardService {
 		return board;
 	}
 
+	@Transactional
 	@Override
-	public boolean insertBoard(MultipartHttpServletRequest req) {
+	public boolean insertBoard(MultipartHttpServletRequest req) throws Exception {
 		String title = req.getParameter("title");
 		String contents = req.getParameter("contents");
+		
+		//현재 마지막 게시글 번호+1를 반환 
 		int boardNo = dao.selectMaxBoardNo();
-		System.out.println("길이 : " + contents.length());
+		
 		Board board = new Board(); 
 		board.setTitle(title);
 		board.setContents(contents);
 		board.setBoardNo(boardNo);
 		
-		dao.insertBoard(board);
-		
-		return false;
+		//첨부파일이 없다면 게시글만 삽입
+		if(req.getFile("file") == null) {
+			//게시글 만 삽입
+			if(dao.insertBoard(board) < 0) {
+				throw new Exception();
+			}
+			
+		}else {
+			//첨부파일이 있다면 같이 삽입
+			MultipartFile file = req.getFile("file");
+			String uploadName = fileLib.uploadFile(file.getBytes(), file.getOriginalFilename());
+			
+			Attachment attach = new Attachment();
+			attach.setAttachNo(1);
+			attach.setBoardNo(boardNo);
+			attach.setOriginFileName(file.getOriginalFilename());
+			attach.setFileName(uploadName);
+			attach.setFileSize(String.valueOf(file.getSize()));
+			
+			//게시글 및 첨부파일 
+			if(dao.insertBoard(board) < 0 || dao.insertBoardAttach(attach) < 0) {
+				throw new Exception();
+			}
+		}
+	
+		return true;
 	}
 
 	@Override

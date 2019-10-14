@@ -48,6 +48,11 @@
 		VALUES(#{boardNo}, #{title}, #{contents}, NOW());
 	</insert>
 	
+	<insert id="insertBoardAttach" parameterType="Attachment">
+		INSERT INTO Attachment(attachNo, boardNo, fileName, originFileName, fileSize, createDate)
+		VALUES(#{attachNo}, #{boardNo}, #{fileName}, #{originFileName}, #{fileSize}, NOW());
+	</insert>
+	
 	<select id="selectMaxBoardNo" resultType="Int">
 		SELECT IFNULL(MAX(boardNo),0)+1 FROM Board
 	</select>

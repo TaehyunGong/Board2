@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.taehyun.board.Board.Vo.Attachment;
 import com.taehyun.board.Board.Vo.Board;
 import com.taehyun.board.Common.MapperVo;
 
@@ -34,8 +35,12 @@ public class BoardDaoImpl implements BoardDao {
 	
 	@Override
 	public int insertBoard(Board board){
-		int result = session.insert("insertBoard", board);
-		return result;
+		return session.insert("insertBoard", board);
+	}
+	
+	@Override
+	public int insertBoardAttach(Attachment attach) {
+		return session.insert("insertBoardAttach", attach);
 	}
 
 	@Override
