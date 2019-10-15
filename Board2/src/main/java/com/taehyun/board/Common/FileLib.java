@@ -5,13 +5,19 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.io.IOUtils;
-import org.apache.ibatis.logging.Log;
-import org.apache.ibatis.logging.LogFactory;
 import org.springframework.core.io.Resource;
+
+import com.taehyun.board.Board.Vo.Attachment;
 
 public class FileLib {
 
@@ -92,4 +98,55 @@ public class FileLib {
 		return filePath;
 	}
 	
+	/**
+	 * @param res
+	 * @param uploadName
+	 * @param originName
+	 * @return Response
+	 * @throws IOException
+	 * @description 파일 다운로드
+	 */
+	public HttpServletResponse downloadFile(HttpServletResponse res, String uploadName, String originName) throws IOException {
+
+		//가져올 파일 경로
+		String realPath = getFilePath() + uploadName;
+		
+		//원본 파일명을 인코딩 해준다.
+    	originName = URLEncoder.encode(originName, "UTF-8");
+        
+        //다운로드를 위해 헤더와 타입을 지정해준다.
+        res.setContentType("application/octer-stream");
+        res.setHeader("Content-Transfer-Encoding", "binary;");
+        res.setHeader("Content-Disposition", "attachment; filename=\"" + originName + "\"");
+        
+        OutputStream os = null;
+    	FileInputStream fis = null;
+    	
+        try {
+        	os = res.getOutputStream();
+        	fis = new FileInputStream(realPath);
+        	
+        	int ncount = 0;
+        	byte[] bytes = new byte[512];
+        	
+        	while ((ncount = fis.read(bytes)) != -1 ) {
+        		os.write(bytes, 0, ncount);
+        	}
+        }catch(Exception ex) {
+        	throw ex;
+        }finally {
+        	
+        	//혹여나 FileInputStream 에러 발생시 예외처리 후 os.close
+        	try {
+        		fis.close();
+        		os.close();
+        	}catch(Exception ex) {
+        		throw ex;
+        	}finally {
+        		os.close();
+        	}
+        }
+            
+		return res;
+	}
 }

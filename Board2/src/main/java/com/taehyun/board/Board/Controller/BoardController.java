@@ -80,9 +80,14 @@ public class BoardController {
 		return mav;
 	}
 	
+	//파일 다운로드, 실패 시 예외처리
 	@RequestMapping(value="/download", method=RequestMethod.GET)
 	public void downloadAttach(HttpServletRequest req, HttpServletResponse res) {
-		service.downloadAttach(req, res);
+		try {
+			service.downloadAttach(req, res);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

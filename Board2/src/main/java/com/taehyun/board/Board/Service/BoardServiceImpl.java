@@ -120,44 +120,12 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public HttpServletResponse downloadAttach(HttpServletRequest req, HttpServletResponse res) {
+	public HttpServletResponse downloadAttach(HttpServletRequest req, HttpServletResponse res) throws Exception {
 		String fileName = req.getParameter("fileName");
-		int boardNo = Integer.parseInt(req.getParameter("boardNo"));
+		Attachment attach = dao.selectBoardAttach(Integer.parseInt(req.getParameter("boardNo")));
 		
-		String realPath = fileLib.getFilePath();
-		Attachment attach = dao.selectBoardAttach(boardNo);
-		String originName = attach.getOriginFileName();
+		fileLib.downloadFile(res, fileName, attach.getOriginFileName());
 		
-        try {
-        	originName = URLEncoder.encode(originName, "UTF-8");
-        } catch (UnsupportedEncodingException ex) {
-            System.out.println("UnsupportedEncodingException");
-        }
-        
-        realPath = realPath + fileName;
-        System.out.println(realPath);
-        
-        // 파일명 지정        
-        res.setContentType("application/octer-stream");
-        res.setHeader("Content-Transfer-Encoding", "binary;");
-        res.setHeader("Content-Disposition", "attachment; filename=\"" + originName + "\"");
-        try {
-            OutputStream os = res.getOutputStream();
-            FileInputStream fis = new FileInputStream(realPath);
- 
-            int ncount = 0;
-            byte[] bytes = new byte[512];
- 
-            while ((ncount = fis.read(bytes)) != -1 ) {
-                os.write(bytes, 0, ncount);
-            }
-            fis.close();
-            os.close();
-        } catch (FileNotFoundException ex) {
-            System.out.println("FileNotFoundException");
-        } catch (IOException ex) {
-            System.out.println("IOException");
-        }
 		return res;
 	}
 

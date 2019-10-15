@@ -22,5 +22,5 @@ public interface BoardService {
 	
 	public boolean deleteBoard(int boardNo);
 	
-	public HttpServletResponse downloadAttach(HttpServletRequest req, HttpServletResponse res);
+	public HttpServletResponse downloadAttach(HttpServletRequest req, HttpServletResponse res) throws Exception ;
 }
